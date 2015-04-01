@@ -3,7 +3,7 @@
 Emails = class
   constructor: (@db, app) ->
     @mailCollection = @db.collection 'emails'
-    app.get '/post/email', @createMail
+    app.post '/post/email', @createMail
     app.get '/emails/', @getAll
 
   getAll: (req, res) =>
@@ -15,7 +15,7 @@ Emails = class
     res.status(404).send err
 
   createMail: (req, res) =>
-    mail = req.query.email
+    mail = req.body.email
     @save mail, (err, _res) =>
       console.log mail unless err
       return @r404 res, err if err
