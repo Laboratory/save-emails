@@ -3,23 +3,21 @@
 Emails = class
   constructor: (@db, app) ->
     @mailCollection = @db.collection 'emails'
-    app.post '/post/email', @createMail
+    app.get '/post/email', @createMail
     app.get '/emails/', @getAll
 
   getAll: (req, res) =>
     @mailCollection.find({}, {_id: 0}).toArray (err, docs) =>
-      return @r404 res, err if err
+      return res.status(404).send err if err
       res.send docs
 
-  r404: (res, err) ->
-    res.status(404).send err
-
   createMail: (req, res) =>
-    mail = req.body.email
+    mail = req.query.email
+    console.log mail
     @save mail, (err, _res) =>
       console.log mail unless err
-      return @r404 res, err if err
-      res.send 'saved'
+      res.jsonp
+        status: if err then 'error' else 'ok'
 
   save: (email, cb) ->
     return cb 'email is null' unless email
