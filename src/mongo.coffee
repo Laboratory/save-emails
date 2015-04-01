@@ -1,5 +1,7 @@
 MongoClient = require('mongodb').MongoClient
-mongoUrl = 'mongodb://localhost:27017/emails'
+port = process.env.MONGO_PORT || 27017
+mongoUrl = "mongodb://localhost:#{port}/emails"
+console.log mongoUrl
 
 module.exports = (cb) ->
   MongoClient.connect mongoUrl, (err, db) ->
