@@ -1,3 +1,4 @@
+moment = require 'moment'
 # Class emails
 # Transport object from service to db
 Emails = class
@@ -5,6 +6,21 @@ Emails = class
     @mailCollection = @db.collection 'emails'
     app.get '/post/email', @createMail
     app.get '/emails/', @getAll
+    app.get '/allemails/', @pageAllEmails
+
+  pageAllEmails: (req, res) =>
+    @mailCollection.find(
+      {}
+    ,
+      _id: 0
+      sort:
+        $natural: -1
+    ).toArray (err, docs) =>
+      res.render 'allemails',
+        error: err
+        items: docs.map (item) ->
+          item.create_ts = moment(item.create_ts).format 'YYYY-MM-DD HH:mm'
+          item
 
   getAll: (req, res) =>
     @mailCollection.find({}, {_id: 0}).toArray (err, docs) =>

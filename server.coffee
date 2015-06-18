@@ -2,6 +2,9 @@ express = require 'express'
 emails = require('./src/emails')
 
 app = express()
+app.set 'views', './views'
+app.set 'view engine', 'jade'
+app.use express.static "#{__dirname}/public"
 
 app.get '/', (req, res) ->
   res.send 'Emails service is running'
