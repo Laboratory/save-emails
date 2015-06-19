@@ -7,4 +7,3 @@ module.exports = (cb) ->
   MongoClient.connect mongoUrl, (err, db) ->
     console.log "Connected correctly to server" unless err
     cb db
-

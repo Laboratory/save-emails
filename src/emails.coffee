@@ -93,7 +93,7 @@ Emails = class
 
 emailsInit = (app) ->
   require('./mongo') (db) ->
-    new Emails(db, app)
+    new Emails db, app
 
 module.exports =
   init: emailsInit
