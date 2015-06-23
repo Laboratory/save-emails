@@ -16,6 +16,6 @@ server = app.listen 3000, ->
   address = server.address()
   console.log "Server listening #{address.address}/#{address.port}"
 
-emails.init app
-mailer.init app
+for service in [emails, mailer]
+  service.init app
 
