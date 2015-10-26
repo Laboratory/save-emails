@@ -1,2 +1,2 @@
 npm install
-MONGO_PORT=3001 supervisor -e node,js,coffee,config index.js
+MONGO_URL=$1 MONGO_PORT=3001 supervisor -e node,js,coffee,config index.js
