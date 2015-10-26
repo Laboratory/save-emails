@@ -1,2 +1,9 @@
+#!/bin/bash
+
 npm install
-MONGO_URL=$1 MONGO_PORT=3001 supervisor -e node,js,coffee,config index.js
+port=3000
+if [ "$2" ]
+  then
+    port=$2
+fi
+MONGO_URL=$1 MONGO_PORT=3001 NODE_PORT=$port supervisor -e node,js,coffee,config index.js
